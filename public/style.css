@@ -1,0 +1,127 @@
+body{
+    font-family: "Cherry Cream Soda";
+}
+
+body #footer{
+    position: fixed;
+}
+
+
+
+#browsButton{
+    color: white;
+}
+
+
+.home{
+     background: url("https://wallpaperscraft.com/image/forest_trees_twilight_110558_1920x1080.jpg");
+}
+
+#homeTextBlock{
+    left: 0;
+    margin: auto;
+    margin-top: -170px;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    text-align: center;
+}
+
+#homeText{
+    border: 3px solid black;
+    border-radius: 5px;
+    margin:auto;
+    padding-bottom: 2%;
+    background-color: rgba(191, 191, 189,.4);
+    color: white;
+    text-shadow: 3px 3px black;
+    z-index: -2; 
+}
+
+#homeText hr{
+    width: 50%;
+}
+
+#homeText h1{
+    font-size: 500%;
+}
+
+#homeText h3{
+    font-size: 200%;
+}
+
+#homeText a{
+    text-shadow: 2px 2px black;
+}
+
+.reviews{
+    background-image:url("https://wallpaperscraft.com/image/forest_trees_grass_morning_light_87688_1920x1080.jpg");
+}
+
+.reviews .container{
+    background-color: white;
+}
+
+
+
+#writeReview{
+    color: white;
+}
+
+#writeReview:hover{
+    color:black;
+}
+
+.about{
+    /*background: url("https://s-media-cache-ak0.pinimg.com/originals/57/04/08/570408dcfeba710ea35c9241a51a2aa9.jpg");*/
+    /*background-repeat: no-repeat;*/
+    /*background-size: cover;*/
+}
+
+.about .row{
+    padding-top: 5%;    
+}
+
+.about #moveDown{
+    padding-top: 20%;
+}
+
+.aboutContent{
+    border: 3px solid black;
+    border-radius: 20px;
+    background-color: white;
+    padding: 5%;
+}
+
+
+.contact{
+    /*background: url("https://awesomewallpapers.files.wordpress.com/2015/12/yosemite-2880x1800-large.jpg");*/
+    /*background-size: cover;*/
+    /*background-repeat: no-repeat;*/
+}
+
+
+.show{
+    text-align: center;
+}
+
+#showImage{ 
+    margin: auto;  
+} 
+
+.show .row{
+    margin-bottom: 3%; 
+}
+
+.edit form{
+    margin-top: 3%; 
+}
+
+
+.thumbnail img{
+    width: 100%; 
+}
+
+.thumbnail{
+    padding: 0;
+}

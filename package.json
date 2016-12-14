@@ -1,0 +1,18 @@
+{
+  "name": "treefiddy",
+  "version": "1.0.0",
+  "description": "website for jou 330",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Marvin Anderson",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "ejs": "^2.5.2",
+    "express": "^4.14.0",
+    "method-override": "^2.3.7",
+    "mongoose": "^4.7.0"
+  }
+}

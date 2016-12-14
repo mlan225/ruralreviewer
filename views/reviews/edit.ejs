@@ -1,0 +1,36 @@
+<% include ../partials/header %>
+
+
+<div class="edit">
+    <div class="container">
+        <div class="row">
+            <h1 style="text-align:center;">Edit Park</h1>
+            <div style="width:30%; margin:25px auto;">
+            <form action="/reviews/<%= park._id %>?_method=PUT" method="POST"> <!--override function in able to RESTfully route-->
+                <div class="form-group">
+                    <input class="form-control" type="text" name="park[park]" value="<%= park.park %>">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="park[image]" value="<%= park.image %>">
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control" name="park[description]"><%= park.description %></textarea>
+                </div>
+                
+                <button class="btn btn-large btn-primary btn-block">Submit</button>
+            </form>
+            
+            <!--delete button-->
+            <form  id="delete" action="/reviews/<%= park._id %>?_method=DELETE" method="POST"> <!--method override sees the method and uses delete instead of post  AND FORMS ARE NOT IN LINE ELEMENTS--> 
+                    <div class="form-group">
+                        <button class="btn btn-large btn-danger btn-block form-control">Delete</button> <!--submits the delete method-->
+                    </div>
+            </form>
+            
+                <a href="/reviews">go back</a>
+            </div> 
+        </div>
+    </div>
+</div>
+
+<% include ../partials/footer %>
