@@ -24,6 +24,15 @@ var data = [
     
     
 function seedDB(){
+    Comment.remove({}, function(err){
+        if(err){
+            console.log(err); 
+        }else{
+            console.log("removed comments!"); 
+        }
+    }); 
+    
+    
     Review.remove({},function(err){
         if(err){
             console.log(err); 

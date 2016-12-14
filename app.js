@@ -13,7 +13,8 @@ seedDB();
 app.set("view engine", "ejs");
 app.use(express.static('public')); 
 mongoose.Promise = global.Promise; //added this because the internet told me how to solve the mongoose promises problem? ... 
-mongoose.connect("mongodb://localhost/ruralreviewer"); 
+// mongoose.connect("mongodb://localhost/ruralreviewer"); 
+mongoose.connect("mongodb://ruralreviewer:rural@ds133418.mlab.com:33418/ruralreviewer");
 app.use(bodyParser.urlencoded({extended: true})); //allows usage of body parser.. not sure why :s 
 app.use(methodOverride("_method")); //looks for the _method when overriding PUT
 
