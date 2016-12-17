@@ -1,0 +1,22 @@
+<!--register-->
+
+<% include ./partials/header %> <!--file is above partials, so you can use './' to start from the current directory -->
+
+<div class="registerForm">
+    <div class="container">
+        <div class="row">
+            
+                
+            <h1>Sign Up!</h1>    
+            <!--register form -->
+            <form action="/register" method="POST"> <!--want to pass in the id for the review-->
+                <input type="text" name="username" placeholder="username">
+                <input type="password" name="password" placeholder="password"> 
+                <button class="btn btn-large btn-primary">Register!</button>
+            </form>
+            <a href="/reviews">go back</a>
+        </div> 
+    </div>
+</div>    
+
+<% include ./partials/footer %>

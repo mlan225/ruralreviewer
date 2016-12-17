@@ -12,14 +12,18 @@
                 <img src="<%=review.image%>">
             </div>
             
-            <h1>Adventure Review:</h1>
-            <p><%= review.description %></p>
+            <div>
+                <h1>Adventure Review From: <%= review.author.username %></h1>
+                <p><%= review.description %></p>
+            </div>
             
             <div class="well">
-                <h1><a href="#" class="btn btn-success">Comment</a></h1>
+                <h1><a href="/reviews/<%= review._id %>/comments/new" class="btn btn-success">Comment</a></h1>
                 <hr>
                 <% review.comments.forEach(function(comment){ %> 
-                    <p><strong><%=comment.author%></strong> - <%= comment.text %></p>
+                    <div id="comment">
+                        <p><strong><%=comment.author.username%></strong> - <%= comment.text %></p>
+                    </div>
                 <% }); %>
             </div>
         

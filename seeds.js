@@ -28,7 +28,7 @@ function seedDB(){
         if(err){
             console.log(err); 
         }else{
-            console.log("removed comments!"); 
+            console.log("removed comments!");            //code here does not account for using a username of user
         }
     }); 
     
@@ -39,28 +39,28 @@ function seedDB(){
         } else {
             console.log("removed reviews!"); 
             
-            data.forEach(function(seed){
-                Review.create(seed, function(err,review){
-                    if(err){
-                        console.log(err); 
-                    }else{
-                        console.log("added a campground");
-                        //create a comment
-                        Comment.create({ //Comment model
-                            text: "This meme is so dank it burns my retnas", 
-                            author: "The Alt Right"
-                        }, function(err,comment){
-                            if(err){
-                                console.log(err); 
-                            }else{
-                                review.comments.push(comment); //push the review/comment variable from callbacks into the Comment model in other file
-                                review.save(); //save push, always save after push ? 
-                                console.log("created new comment"); 
-                            }
-                        }); 
-                    }
-                });   
-            });
+    //         data.forEach(function(seed){
+    //             Review.create(seed, function(err,review){
+    //                 if(err){
+    //                     console.log(err); 
+    //                 }else{
+    //                     console.log("added a campground");
+    //                     //create a comment
+    //                     Comment.create({ //Comment model
+    //                         text: "This meme is so dank it burns my retnas", 
+    //                         author: "The Alt Right"
+    //                     }, function(err,comment){
+    //                         if(err){
+    //                             console.log(err); 
+    //                         }else{
+    //                             review.comments.push(comment); //push the review/comment variable from callbacks into the Comment model in other file
+    //                             review.save(); //save push, always save after push ? 
+    //                             console.log("created new comment"); 
+    //                         }
+    //                     }); 
+    //                 }
+    //             });   
+    //         });
         }
     }); 
 }

@@ -1,25 +1,29 @@
+<!--reviews/new--> 
+
+
 <% include ../partials/header %>
 
-
-<div class="container">
-    <div class="row">
-        <h1 style="text-align:center;">Create a new Review</h1>
-        <div style="width:30%; margin:25px auto;">
-        <form action="/reviews" method="POST">
-            <div class="form-group">
-                <input class="form-control" type="text" name="park[park]" placeholder="National Park Name">
-            </div>
-            <div class="form-group">
-                <input class="form-control" type="text" name="park[image]" placeholder="Image Address To Picture of Park">
-            </div>
-            <div class="form-group">
-                <textarea class="form-control" name="park[description]" placeholder="Type Review Here"></textarea>
-            </div>
-            
-            <button class="btn btn-large btn-primary btn-block">Submit</button>
-        </form>
-        <a href="/reviews">go back</a>
-    </div> 
+<div class="newReviewForm">
+    <div class="container">
+        <div class="row">
+            <h1 style="text-align:center;">Create a new Review</h1>
+            <div style="width:30%; margin:25px auto;">
+            <form action="/reviews" method="POST">
+                <div class="form-group">
+                    <input class="form-control" type="text" name="park" placeholder="National Park Name">
+                </div>
+                <div class="form-group">
+                    <input class="form-control" type="text" name="image" placeholder="Image Address To Picture of Park">
+                </div>
+                <div class="form-group">
+                    <textarea class="form-control" name="desc" placeholder="Type Review Here"></textarea>
+                </div>
+                
+                <button class="btn btn-large btn-primary btn-block">Submit</button>
+            </form>
+            <a href="/reviews">go back</a>
+        </div> 
+    </div>
 </div>
 
 <% include ../partials/footer %>

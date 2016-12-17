@@ -24,12 +24,21 @@
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav navbar-right">
-        <li><a id="writeReview" class="navbar-link btn-sm btn-success" href="/reviews/new">Write A Review!</a></li>
+      <ul class="nav navbar-nav navbar-left">
         <li><a href="/">Home</a></li>
         <li><a href="/reviews">Reviews</a></li>
         <li><a href="/about">About</a></li>
         <li><a href="/contact">Contact</a></li>
+        <li><a id="writeReview" class="navbar-link btn-sm btn-success" href="/reviews/new">Write A Review!</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <% if(!currentUser){ %><!--if no current user show these-->
+          <li><a href="/login">Log In</a></li>
+          <li><a href="/register">Sign Up</a></li>
+        <% }else{ %> <!--otherwise show these-->
+          <li><a href="#">Signed In As <%= currentUser.username %></a></li> <!--the .username comes from the 'user' model--> 
+          <li><a href="/logout">Log Out</a></li>
+        <% } %> 
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
