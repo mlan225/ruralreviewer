@@ -38,7 +38,7 @@ app.use(function(req,res,next){ //need next to move on to next middleware
 });
 
 
-// seedDB(); 
+seedDB(); 
 
 
 
