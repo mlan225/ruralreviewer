@@ -1,10 +1,7 @@
 body{
     font-family: "Cherry Cream Soda";
     background-color: rgb(14, 62, 66);
-}
-
-body #footer{
-    position: fixed;
+    padding-bottom: 10%; 
 }
 
 
@@ -63,8 +60,6 @@ body #footer{
     background-color: white;
 }
 
-
-
 #writeReview{
     color: white;
 }
@@ -119,6 +114,13 @@ body #footer{
 
 .show .row{
     margin-bottom: 3%; 
+}
+.show .well{
+    margin-top: 10%;
+}
+
+.show #review{
+    margin-top: 5%;
 }
 
 .editForm{
