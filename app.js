@@ -131,8 +131,17 @@ app.get("/reviews/:id/edit",isLoggedIn, function(req, res) {
        if(err){
            console.log(err); 
        } else {
-        res.render("reviews/edit", {park:foundReview}); 
-        }
+           
+          var author = foundReview.author.username; 
+          var currentUser = req.user.username; 
+           
+          if(author != currentUser){
+              console.log("must be the author of a post to edit"); 
+              res.redirect("/reviews"); 
+          }else{
+                res.render("reviews/edit", {park:foundReview}); 
+          }
+       }
     }); 
 });
 

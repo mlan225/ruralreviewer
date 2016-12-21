@@ -4,9 +4,16 @@
     <div class="row">
         <div class="container">
             
-            <a href="/reviews/<%=review._id%>/edit" class="btn btn-primary pull-left">Edit</a>
-        
-            <h1><%=review.park%></h1> 
+            <div class="pull-left">
+                <a href="/reviews/<%=review._id%>/edit" class="btn btn-primary pull-left">Edit</a>
+                <p>Only the author of a post can edit it</p>
+            </div>
+           
+            <div>
+                <p style="margin-top:5%;">
+                    <h1><%=review.park%></h1> 
+                </p>
+            </div>
             
             <div class="thumbnail" id="showImage">
                 <img src="<%=review.image%>">
