@@ -13,8 +13,6 @@ body{
 
 .home{
      background: url("http://www.socwall.com/images/wallpapers/48117-1920x1200.jpg");
-     background-position: top;
-     background-repeat: no-repeat; 
 }
 
 #homeTextBlock{
@@ -180,4 +178,8 @@ body{
 
 .thumbnail{
     padding: 0;
+}
+
+.navbar.navbar-default{
+    z-index: 10;  
 }
