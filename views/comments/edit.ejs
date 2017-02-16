@@ -1,0 +1,22 @@
+<% include ../partials/header %>
+
+<div class="newComment">
+        <div class="container">
+            <div class="row">
+                <h1 style="text-align:center;">Edit Comment</h1>
+                <div style="width:30%; margin:25px auto;">
+                    
+                <form action="/reviews/<%= review_id %>/comments/<%= comment._id %>?_method=PUT" method="POST"> <!--want to pass in the id for the review-->
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="comment[text]" value="<%= comment.text %>">
+                    </div>
+                    
+                    <button class="btn btn-large btn-primary btn-block">Submit</button>
+                </form>
+                <a href="/reviews">go back</a>
+            </div> 
+        </div>
+    </div>
+</div>
+
+<% include ../partials/footer %>

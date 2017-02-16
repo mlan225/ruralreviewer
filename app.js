@@ -6,6 +6,7 @@ var methodOverride = require("method-override"); //allows for RESTful routes (de
 var Review = require("./models/review"); //gets the review model from the models/review.js file
 var Comment = require("./models/comment"); //connect to the comment.js model
 var seedDB = require("./seeds"); //the seed.js file is in the same as app.js so can just have "./seeds"
+var methodOverride = require("method-override");
 
 var passport = require("passport"); 
 var localStrategy = require("passport-local"); 
@@ -21,6 +22,8 @@ app.use(require("express-session")({
     saveUninitialized: false //when getting a depricated message in the terminal, this is most likely spelled wrong 
 })); 
 
+app.use(methodOverride("_method")); //method override use
+
 app.use(passport.initialize()); 
 app.use(passport.session()); 
 passport.use(new localStrategy(User.authenticate())); 
@@ -31,7 +34,7 @@ passport.deserializeUser(User.deserializeUser());
 //============================
 
 
-
+//this allows current user to be used in every route
 app.use(function(req,res,next){ //need next to move on to next middleware
     res.locals.currentUser = req.user; 
     next(); 
@@ -78,7 +81,7 @@ app.get("/reviews", function(req,res){
             } else {
                 res.render("reviews/reviews", {reviews:allReviews}); 
             }
-        })
+        });
 }); 
 
 
@@ -125,34 +128,24 @@ app.get("/reviews/:id",isLoggedIn, function(req, res) {
 
 
 //EDIT ROUTE
-//goes to edit form
-app.get("/reviews/:id/edit",isLoggedIn, function(req, res) {
-    Review.findById(req.params.id, function(err,foundReview){
-       if(err){
-           console.log(err); 
-       } else {
-           
-          var author = foundReview.author.username; 
-          var currentUser = req.user.username; 
-           
-          if(author != currentUser){
-              console.log("must be the author of a post to edit"); 
-              res.redirect("/reviews"); 
-          }else{
-                res.render("reviews/edit", {park:foundReview}); 
-          }
-       }
-    }); 
+//edit campground route
+ 
+app.get("/reviews/:id/edit", checkCampgroundOwnership, function(req,res){
+   Review.findById(req.params.id, function(err, park){
+       res.render("reviews/edit", {park:park}); 
+   }); 
 });
+
+
 
 //UPDATE ROUTE 
 //actually update the information
-app.put("/reviews/:id",isLoggedIn, function(req,res){
+app.put("/reviews/:id",checkCampgroundOwnership, function(req,res){
    Review.findByIdAndUpdate(req.params.id, req.body.park, function(err,updatedPark){
       if(err){
           res.redirect("/reviews"); 
       } else {
-          res.redirect("/reviews"); 
+          res.redirect("/reviews/" + req.params.id); 
       }
    }); 
 });
@@ -160,15 +153,15 @@ app.put("/reviews/:id",isLoggedIn, function(req,res){
 
 //DESTROY ROUTE
 //deletes item from database
-app.delete("/reviews/:id",isLoggedIn, function(req,res){
-    Review.findByIdAndRemove(req.params.id, function(err,deletedPark){
-        if(err){
-            res.redirect("/reviews");
-        } else {
-            console.log("Deleted " + deletedPark); 
-            res.redirect("/reviews"); 
-        }
-    }); 
+app.delete("/reviews/:id",checkCampgroundOwnership, function(req,res){
+        Review.findByIdAndRemove(req.params.id, function(err,deletedPark){
+            if(err){
+                res.redirect("/reviews");
+            } else {
+                console.log("Deleted " + deletedPark); 
+                res.redirect("/reviews"); 
+            }
+        }); 
 }); 
 
 //=================================================================
@@ -212,6 +205,41 @@ app.post("/reviews/:id/comments",isLoggedIn, function(req,res){
 });
 
 
+//EDITING COMMENTS  
+app.get("/reviews/:id/comments/:comment_id/edit",checkCommentOwnership, function(req, res) {
+    Comment.findById(req.params.comment_id, function(err, foundPark) {
+        if(err){
+            res.redirect("back");
+        }else{
+            res.render("comments/edit", {review_id: req.params.id, comment: foundPark}); 
+        }
+    });
+});
+
+
+//UPDATING COMMENTS
+app.put("/reviews/:id/comments/:comment_id",checkCommentOwnership, function(req, res) {
+   Comment.findByIdAndUpdate(req.params.comment_id, req.body.comment, function(err,updatedPark){ //takes 3 things: id to find by, what to update it with, and the callback function
+      if(err){
+          res.redirect("back"); 
+      } else {
+          res.redirect("/reviews/" + req.params.id); //back to show page
+      }
+   }); 
+});
+
+
+//DESTROY ROUTE
+app.delete("/reviews/:id/comments/:comment_id",checkCommentOwnership, function(req,res){
+     Comment.findByIdAndRemove(req.params.comment_id, function(err,deletedComment){
+            if(err){
+                res.redirect("back");
+            } else {
+                console.log("Deleted " + deletedComment); 
+                res.redirect("/reviews/" + req.params.id); 
+            }
+        }); 
+}); 
 
 //=================================================================
     //AUTH ROUTES
@@ -277,13 +305,56 @@ app.get("/contact", function(req, res) {
 //=========================================
     //FUNCTIONS
     
-    
+
+//middleware for being logged in
 function isLoggedIn(req,res,next){
     if(req.isAuthenticated()){
         return next();
     }               
     res.redirect("/login"); 
-}; 
+}
+
+//middleware for being a campground owner
+function checkCampgroundOwnership(req,res,next){
+    if(req.isAuthenticated(req,res,next)){
+            Review.findById(req.params.id, function(err, park) { //finds park
+                if(err){
+                    console.log(err);
+                }else{
+                    //does user own the campground? 
+                    if(park.author.id.equals(req.user._id)){ //park.author.id = NOT a string! it is a mongoose object --- this finds if it is the same
+                        next(); //allows the code to move on because the code will do other things
+                    }else{
+                        res.redirect("back");
+                    }
+                }
+            }); 
+        }else{
+            res.redirect("back"); //will redirect the user back to where they were preveously 
+        }
+}
+
+
+//middleware for being a comment owner
+function checkCommentOwnership (req,res,next){
+    if(req.isAuthenticated(req,res,next)){
+            Comment.findById(req.params.comment_id, function(err, foundComment) { //finds park
+                if(err){
+                    res.redirect("back"); 
+                }else{
+                    //does user own the campground? 
+                    if(foundComment.author.id.equals(req.user._id)){ 
+                        next(); 
+                    }else{
+                        res.redirect("back");
+                    }
+                }
+            }); 
+    }else{
+        res.redirect("back"); //will redirect the user back to where they were preveously 
+    }
+}
+
 
 //=========================================
 

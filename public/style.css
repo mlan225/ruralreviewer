@@ -201,7 +201,9 @@ html, body {
   display: block;
 }
 .site-footer, .page-wrap:after {
-  height: 50px; 
+  height: 50px;
+  margin-top: 3%;
+  color: black;
 }
 .site-footer {
   background: rgb(248, 248, 248);
@@ -209,3 +211,11 @@ html, body {
 }
 
 /*sticky footer stuff=================================*/
+
+#delete{
+    margin-top: 5%;
+}
+
+#deleteComment{
+    display: inline;
+}

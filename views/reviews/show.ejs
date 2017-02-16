@@ -3,11 +3,6 @@
 <body class="show">
     <div class="row">
         <div class="container">
-            
-            <div class="pull-left">
-                <a href="/reviews/<%=review._id%>/edit" class="btn btn-primary pull-left">Edit</a>
-                <p>Only the author of a post can edit it</p>
-            </div>
            
             <div>
                 <p style="margin-top:5%;">
@@ -21,6 +16,9 @@
             
             <div>
                 <h1>Adventure Review From: <%= review.author.username %></h1>
+                    <%if( currentUser && review.author.id.equals(currentUser._id)){ %> <!-- check if a current user is logged in. Redudent because it checks for auth in the beginning of the route --> 
+                        <a class="btn btn-warning" href="/reviews/<%= review._id %>/edit">Edit</a> 
+                    <% }; %>
                 <p id="review"><%= review.description %></p>
             </div>
             
@@ -29,7 +27,15 @@
                 <hr>
                 <% review.comments.forEach(function(comment){ %> 
                     <div id="comment">
-                        <p><strong><%=comment.author.username%></strong> - <%= comment.text %></p>
+                            <p><strong><%=comment.author.username%></strong> - <%= comment.text %></p>
+                               <% if( currentUser && comment.author.id.equals(currentUser._id)){ %>
+                                    <a class="btn btn-xs btn-warning" href="/reviews/<%= review._id %>/comments/<%= comment._id %>/edit">Edit</a> <!--only show buttons when logged in-->
+                                <% }; %>
+                            <form id="deleteComment" action="/reviews/<%= review._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">
+                                <% if( currentUser && comment.author.id.equals(currentUser._id)){ %>
+                                    <button class="btn btn-xs btn-danger">Delete</button>
+                                  <% }; %>
+                            </form>
                     </div>
                 <% }); %>
             </div>
